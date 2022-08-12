@@ -1,4 +1,5 @@
 package algorithm.class0811.햄버거다이어트;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,34 +28,28 @@ public class Solution {
             for (int i = 0; i < n; i++) {
                 hamburger[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
             }
-            for (int i = 1; i <= n; i++) {
-                combination(i, 0, 0, 0, 0);
-
-            }
-            System.out.printf("#%d %d", t + 1, answer);
+            solve(0, 0, 0);
+            System.out.printf("#%d %d\n", t + 1, answer);
         }
     }
 
-    static void combination(int c, int count, int start, int point, int calories) {
+    // 총 경우의 수가 2^n -1
+    static void solve(int count, int point, int calories) { // 백트래킹
+        // 종료조건
+        if (calories <= l) {
+            answer = Math.max(point, answer);
+        }
 
-        //조합의 개수가 전체를 넘어가면 종료
-        if (count > c) {
+        if (count >= n || calories > l) {
             return;
         }
 
-        if (calories > l) {
-            return;
-        }
-        if (point > answer) {
-            answer = point;
-        }
-        for (int i = start; i < n; i++) {
-            if (visit[i] == 0) {
-                visit[i] = 1;
-                combination(c, count + 1, start + 1, point + hamburger[i][0], calories + hamburger[i][1]);
-                visit[i] = 0;
-            }
-        }
+        // 현재 재료를 사용
+        solve(count + 1, point + hamburger[count][0], calories + hamburger[count][1]);
 
+        // 현재 자료를 사용하지않고 건너뜀
+        solve(count + 1, point, calories);
     }
+
+
 }

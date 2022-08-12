@@ -2,7 +2,7 @@ package algorithm.study.week2.조이스틱;
 
 public class Solution {
     public static void main(String[] args) {
-        String name = "JEROEN";
+        String name = "JAN";
 
         /*
         https://school.programmers.co.kr/learn/courses/30/lessons/42860
@@ -16,17 +16,15 @@ public class Solution {
          * */
         char a = 'A';
         char z = 'Z';
-        int mid = ((int) z - (int) a) / 2;
-        int cursor = a;
-        for (int i = 0; i < name.length(); i++) {
-            char alpha = name.charAt(i);
-            int idx = (int) alpha;
-            int distUpDown = Math.abs(cursor- idx); // 현재 커서와 타겟의 차이
 
+        int answer = 0;
+        answer += name.length() - 1;
+        for (int i = 0; i < name.length(); i++) {
 
 
 
         }
+        System.out.println(answer);
 
     }
 }
