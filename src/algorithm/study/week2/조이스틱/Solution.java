@@ -1,6 +1,9 @@
 package algorithm.study.week2.조이스틱;
 
 public class Solution {
+    static int answer, idx, next;
+    static char alpha;
+
     public static void main(String[] args) {
         String name = "JAN";
 
@@ -16,15 +19,19 @@ public class Solution {
          * */
         char a = 'A';
         char z = 'Z';
+        answer = 0;
+        next = name.length() - 1; // 다음 알파벳을 보는 것
 
-        int answer = 0;
-        answer += name.length() - 1;
         for (int i = 0; i < name.length(); i++) {
-
-
-
+            alpha = name.charAt(i);
+            answer += Math.min(alpha - a, z - alpha + 1);
+            idx = i + 1;
+            while (idx < name.length() && name.charAt(idx) == 'A') {
+                idx++;
+            }
+            next = Math.min(next, i + (name.length() - idx) + Math.min(i, name.length() - idx));
         }
-        System.out.println(answer);
-
+        System.out.println(answer + next);
+//        return answer + next;
     }
 }
