@@ -7,17 +7,17 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Solution2 {
-    static int t, n, maxVal, maxCnt, val, X, Y, startIdx, val2, X2, Y2, cnt;
-    static Integer[] item1;
-    static Integer[] item2;
+    static int t, n, maxVal, maxCnt, val, X, Y, startIdx, val2, X2, Y2, cnt, minStartIdx;
+    static int[] item1;
+    static int[] item2;
     static int[][] arr;
 
     static BufferedReader br;
     static StringTokenizer st;
     static StringBuilder sb;
-    static PriorityQueue<Integer[]> queue;
-    static PriorityQueue<Integer[]> answer;
-    static Integer[] result;
+    static PriorityQueue<int[]> queue;
+    static PriorityQueue<int[]> answer;
+    static int[] result;
 
     public static void main(String[] args) throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,7 +35,7 @@ public class Solution2 {
                 st = new StringTokenizer(br.readLine());
                 for (int k = 0; k < n; k++) {
                     arr[j][k] = Integer.parseInt(st.nextToken());
-                    queue.add(new Integer[]{arr[j][k], j, k}); // 우선순위 큐 저장 완료
+                    queue.add(new int[]{arr[j][k], j, k}); // 우선순위 큐 저장 완료
                     if (maxVal < arr[j][k]) maxVal = arr[j][k]; // 최대값 저장
                 }
             }// 테이블 입력 완료
@@ -43,8 +43,8 @@ public class Solution2 {
             // 로직 시작
             // 4방향을 보긴 봐야 함
             // bfs 사용
-            item1 = new Integer[3];
-            item2 = new Integer[3];
+            item1 = new int[3];
+            item2 = new int[3];
 
             maxCnt = Integer.MIN_VALUE;
             item1 = queue.remove();
@@ -70,7 +70,7 @@ public class Solution2 {
                     val = val2;
                     cnt++;
                 } else {
-                    answer.add(new Integer[]{startIdx, cnt});
+                    answer.add(new int[]{startIdx, cnt});
                     length++;
                     X = X2;
                     Y = Y2;
@@ -79,7 +79,7 @@ public class Solution2 {
                     cnt = 1;
                 }
             }
-            result = new Integer[length];
+            result = new int[length];
             result = answer.remove();
             sb.append("#").append(i).append(" ").append(result[0]).append(" ").append(result[1]);
             sb.append("\n");
