@@ -1,4 +1,4 @@
-package algorithm.youtubeclass.class0811.bfs;
+package youtubeclass.class0811.bfs;
 
 public class CompleteBinaryTreeTest {
 

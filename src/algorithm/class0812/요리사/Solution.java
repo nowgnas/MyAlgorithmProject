@@ -42,15 +42,11 @@ public class Solution {
         if (count > mid) {
             return;
         }
-
-
         // 조합이 완성되었을 경우
         if (count == mid) {
-
             //인덱스를 저장할 리스트
             FoodA = new ArrayList<>();
             FoodB = new ArrayList<>();
-
             // 고른 재료들을 각 리스트에 넣는다.
             for (int i = 0; i < n; i++) {
                 if (visit[i] == 0) {
@@ -60,7 +56,6 @@ public class Solution {
                 }
             }
             int ASum = 0;
-
             // 리스트에서 꺼내면서 맛을 계산
             for (int i = 0; i < FoodA.size(); i++) {
                 for (int j = i + 1; j < FoodA.size(); j++) {
@@ -70,7 +65,6 @@ public class Solution {
                 }
             }
             int BSum = 0;
-
             // 리스트에서 꺼내면서 맛을 계산한다.
             for (int i = 0; i < FoodB.size(); i++) {
                 for (int j = i + 1; j < FoodB.size(); j++) {
@@ -80,7 +74,6 @@ public class Solution {
                 }
             }
             answer = Math.min(Math.abs(ASum - BSum), answer);
-
         }
 
         for (int i = start; i < n; i++) {

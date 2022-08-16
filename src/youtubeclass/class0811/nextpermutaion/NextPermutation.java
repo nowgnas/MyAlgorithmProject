@@ -1,6 +1,5 @@
-package algorithm.youtubeclass.class0811.nextpermutaion;
+package youtubeclass.class0811.nextpermutaion;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Scanner;
 

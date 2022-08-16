@@ -1,4 +1,4 @@
-package algorithm.youtubeclass.class0811.bfs;
+package youtubeclass.class0811.bfs;
 
 import java.util.LinkedList;
 import java.util.Queue;

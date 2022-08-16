@@ -1,4 +1,4 @@
-package algorithm.youtubeclass.class0811.permutationbitmasking;
+package youtubeclass.class0811.permutationbitmasking;
 
 import java.util.Scanner;
 
