@@ -3,7 +3,6 @@ package algorithm.class0817.감시;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +27,7 @@ public class Main {
     private static void combination(int idx) { // 조합을 해보자
 
         if (idx == cctv.size()) { // cctv 개수만큼 조합이 완성 되먄
+            System.out.println(Arrays.toString(comb));
             tempTable = new int[n][m];
             for (int i = 0; i < cctv.size(); i++) { // cctv 개수만큼 돌면서
                 int[] cctvData = cctv.get(i);
