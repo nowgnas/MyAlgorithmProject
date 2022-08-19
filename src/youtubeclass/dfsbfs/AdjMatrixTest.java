@@ -33,7 +33,7 @@ public class AdjMatrixTest {
 
         visited[cur] = true;
 
-        System.out.print((char) (cur + 'A'));
+        System.out.print(cur + " ");
 
         // 현재 정점의 인접 정점들에 큐에 넣어서 차후 탐색하도록 만들기
         for (int i = 0; i < N; i++) {
@@ -41,7 +41,6 @@ public class AdjMatrixTest {
                 dfs(i);
             }
         }
-
     }
 
     private static void bfs() {
