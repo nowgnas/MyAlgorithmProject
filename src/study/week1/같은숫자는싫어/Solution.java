@@ -1,4 +1,4 @@
-package algorithm.study.week1.같은숫자는싫어;
+package study.week1.같은숫자는싫어;
 
 public class Solution {
     public int[] solution(int []arr) {

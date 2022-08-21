@@ -1,4 +1,4 @@
-package algorithm.study.week2.섬연결하기;
+package study.week2.섬연결하기;
 
 public class djikstra {
     static int[][] graph;

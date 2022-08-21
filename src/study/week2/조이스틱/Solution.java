@@ -1,4 +1,4 @@
-package algorithm.study.week2.조이스틱;
+package study.week2.조이스틱;
 
 public class Solution {
     static int answer, idx, next;

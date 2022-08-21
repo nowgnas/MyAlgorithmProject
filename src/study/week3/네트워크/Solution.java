@@ -1,4 +1,4 @@
-package algorithm.study.week3.네트워크;
+package study.week3.네트워크;
 
 
 public class Solution {

@@ -1,4 +1,4 @@
-package algorithm.study.week2.큰수만들기;
+package study.week2.큰수만들기;
 
 import java.util.Arrays;
 

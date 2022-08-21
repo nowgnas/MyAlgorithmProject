@@ -1,4 +1,4 @@
-package algorithm.study.week3.타겟넘버;
+package study.week3.타겟넘버;
 
 public class Solution {
 

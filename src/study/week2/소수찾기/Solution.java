@@ -1,6 +1,5 @@
-package algorithm.study.week2.소수찾기;
+package study.week2.소수찾기;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
 /*

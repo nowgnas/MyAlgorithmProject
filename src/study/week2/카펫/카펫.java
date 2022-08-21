@@ -1,4 +1,4 @@
-package algorithm.study.week2.카펫;
+package study.week2.카펫;
 
 import java.util.Arrays;
 
