@@ -3,14 +3,16 @@ package algorithm.class0819.캐슬디펜스;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static int N, M, D;
+    static int N, M, D, ans;
     static int[][] map;
     static int[] inputs;
     static boolean[] visited;
+    static ArrayList<Integer> arrow = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         inputs = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
@@ -27,46 +29,67 @@ public class Main {
         for (int i = 0; i < M; i++) {
             map[N][i] = -2;
         }
-        for (int i = 0; i < N; i++) {
-            System.out.println(Arrays.toString(map[i]));
-        }
-        comb(3, 0);
+
+        comb(0, 0);
+        System.out.println(ans);
     }
 
     private static void attack() {
+        int temp = 0;
+        int castle = N; //초기 성의 위치
+        int[][] map2 = new int[N][M]; // 방문된 곳은 0으로 표시하기 위해 다른 배열 만듦
+        for (int i = 0; i < N; i++) {
+            System.arraycopy(map[i], 0, map2[i], 0, M);
+        }
 
-    }
-
-    private static void swap(int y, int x, int y2, int x2, int[][] arr) {
-        int temp = arr[y][x];
-        arr[y][x] = 0;
-        arr[y2][x2] = temp;
-    }
-
-    private static void comb(int pick, int cnt) { // 조합 성공
-
-        if (pick == 0) { // 하나의 조합 에서 턴이 끝날 때 까지 돌아야 한다.
-            int[][] copy = new int[N + 1][M];
-
-            for (int i = 0; i < N; i++) {  // map을 복사
+        while (castle > 0) { // 모든 궁수가 예외가 될 때까지
+            ArrayList<Integer[]> enemy = new ArrayList<>(); //공격할 적이 들어가는 배열
+            for (int k = 0; k < arrow.size(); k++) { //모든 궁수는 가장 가까운 적을 찾는다
+                int min = Integer.MAX_VALUE;
+                int[] pos = new int[2]; // 현재 궁수에서 가장 가까운 적의 위치 담는 배열
                 for (int j = 0; j < M; j++) {
-                    copy[i][j] = map[i][j];
+                    for (int i = castle - 1; i >= 0; i--) {
+                        int diff = Math.abs(castle - i) + Math.abs(arrow.get(k) - j);//적과의 거리
+
+                        if (map2[i][j] == 1 && diff <= D) { //공격할 수 있는 거리에 적이 있다면
+                            if (diff < min) { //새로운 적이 더 가까이 있다면 거리와 위치 갱신
+                                min = diff;
+                                pos[0] = i;
+                                pos[1] = j;
+                            }
+                            break;
+                        }
+                    }
+                }
+                if (min != Integer.MAX_VALUE) { //만약 공격할 수 있는 적이 있다면 enemy에 추가
+                    enemy.add(new Integer[]{pos[0], pos[1]});
                 }
             }
-            for (int i = 0; i < N; i++) {
-                System.out.println(Arrays.toString(copy));
+            for (int i = 0; i < enemy.size(); i++) { //모든 궁수가 공격할 수 있는 enemy배열
+                if (map2[enemy.get(i)[0]][enemy.get(i)[1]] != 0) { //중복되는 적은 0처리해준다.
+                    temp += 1;
+                    map2[enemy.get(i)[0]][enemy.get(i)[1]] = 0;
+                }
             }
+            castle -= 1; // 성이 위로 올라감. 적이 더 가까이 다가옴
 
-            // 모든 턴이 끝나야 함
-            // 적은 아래로 한칸씩 내려오게 됨
+        }
+
+        if (temp > ans) ans = temp; //전체 적의 수 갱신
+
+    }
 
 
+    static void comb(int cnt, int start) {
+        if (cnt == 3) {
+            attack();
             return;
         }
-        if (cnt == M) return;
-        visited[cnt] = true;
-        comb(pick - 1, cnt + 1);
-        visited[cnt] = false;
-        comb(pick, cnt + 1);
+
+        for (int i = start; i < M; i++) {
+            arrow.add(i);
+            comb(cnt + 1, i + 1);
+            arrow.remove(arrow.size() - 1);
+        }
     }
 }
