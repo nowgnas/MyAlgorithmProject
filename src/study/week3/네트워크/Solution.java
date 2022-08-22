@@ -18,7 +18,6 @@ public class Solution {
             if (!visit[i]) {
                 cnt += 1;
                 dfs(computers, i); // 1이 아니면 탐색
-
             }
         }
         System.out.println(cnt);
