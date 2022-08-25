@@ -46,12 +46,10 @@ public class Main {
         int iter = ele.length() / 2;
         int maxIdx = ele.length() - 1;
         for (int i = 0; i < iter; i++) {
-            if (ele.charAt(i) == ele.charAt(maxIdx)) {
-                maxIdx--;
-                continue;
-            } else {
+            if (ele.charAt(i) != ele.charAt(maxIdx)) {
                 return false;
             }
+            maxIdx--;
         }
         return true;
     }
