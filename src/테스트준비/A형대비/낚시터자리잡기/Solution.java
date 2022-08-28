@@ -51,6 +51,10 @@ public class Solution {
             // 시작점 순열로 생성
             for (int i = 0; i < gateSet.length; i++) {
                 // 가장 가까운 곳 부터 간다
+                for (int j = 0; j < map[1][gateSet[i]]; j++) {
+                    // 낚시꾼 수 만큼
+
+                }
 
 
 
