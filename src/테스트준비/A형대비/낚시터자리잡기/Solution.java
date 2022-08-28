@@ -23,16 +23,16 @@ public class Solution {
 
             map = new int[2][61];
             gate = new int[3];
-            visited = new boolean[3];
-            gate = new int[3];
-            gateSet = new int[3];
+            visited = new boolean[3]; // 조합을 위한 방문 처리
+            gate = new int[3]; // gate 숫자 저장 용 -> 조합에 사용
+            gateSet = new int[3]; // 생성될 조합 초기화
 
             for (int j = 0; j < 3; j++) {
                 int[] inputs = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
                 int enter = inputs[0]; // 출입구 위치
                 int waiting = inputs[1]; // 대기 중인 낚시꾼
                 map[1][enter] = waiting; // 출입구에 몇명 있는지
-                gate[j] = enter;
+                gate[j] = enter; // gate 숫자 저장
             }
             for (int j = 0; j < 2; j++) {
                 System.out.println(Arrays.toString(map[j]));
@@ -50,9 +50,10 @@ public class Solution {
         if (cnt == pick) {
             // 시작점 순열로 생성
             for (int i = 0; i < gateSet.length; i++) {
-                int wait = map[1][gateSet[i]]; // 기다리는 사람
-                int start = (wait / 2);
-                System.out.print(start + " ");
+                // 가장 가까운 곳 부터 간다
+
+
+
             }
             System.out.println();
 
