@@ -3,9 +3,12 @@ package study.week4.후보추천;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class Main {
+public class Main2 {
     static int N, recommend;
     static int[] student;
 
@@ -20,7 +23,7 @@ public class Main {
 
         @Override
         public int compareTo(Student o) {
-            if (this.vote != o.vote) {
+            if (this.vote == o.vote) {
                 return this.create - o.create;
             }
             return this.vote - o.vote;
@@ -39,28 +42,37 @@ public class Main {
         student = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 
         for (int i = 0; i < student.length; i++) {
-            // 투표를 돌면서
+            int no = student[i];
             if (queue.size() < N) {
-                // 학생 추가 가능
-                if (vote[student[i]] == 0) {
-                    // 게시가 안됐으면
-                    vote[student[i]] += 1;
-                    queue.add(new Student(student[i], i, vote[student[i]]));
-                } else {
-                    // 이미 게시 된 거면
-                    vote[student[i]] += 1; // 투표 수 추가만
+                int flag = 0;
+                for (Student item :
+                        queue) {
+                    if (item.no == no) {
+                        vote[no] += 1;
+                        item.vote = vote[no];
+                    } else flag += 1;
                 }
+                if (flag == queue.size()) {
+                    // 후보 개수 만족 못했을 경우
+                    vote[no] += 1;
+                    queue.add(new Student(no, i, vote[no]));
+                }
+
             } else {
-                // 틀이 다 찼으면
-                if (vote[student[i]] == 0) {
-                    Collections.sort(queue);
-                    int curNo = queue.get(0).no;
-                    vote[curNo] = 0;
-                    queue.remove(0); // 빼고
-                    vote[student[i]] += 1;
-                    queue.add(new Student(student[i], i, vote[student[i]]));
+                // 후보 추천에 없는 경우
+                Collections.sort(queue);
+                if (vote[no] == 0) {
+                    Student cur = queue.remove(0); // 다 찬 경우 새 후보 추천
+                    vote[cur.no] = 0;
+                    vote[no] += 1;
+                    queue.add(new Student(no, i, vote[no]));
                 } else {
-                    vote[student[i]] += 1;
+                    // 후보에 있는 경우
+                    vote[no] += 1;
+                    for (Student item :
+                            queue) {
+                        if (item.no == no) item.vote = vote[no];
+                    }
                 }
             }
         }
@@ -73,6 +85,13 @@ public class Main {
             if (answer[i] != 0)
                 System.out.print(answer[i] + " ");
         }
-
     }
 }
+
+/*
+
+3
+10
+3 4 3 3 1 2 4 1 5 7
+
+*/
