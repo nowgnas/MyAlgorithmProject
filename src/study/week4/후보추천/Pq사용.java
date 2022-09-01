@@ -27,7 +27,7 @@ public class Pq사용 {
         int N = Integer.parseInt(bf.readLine()); // 사진틀 수
         int R = Integer.parseInt(bf.readLine()); // 추천 횟수
 
-        int[] vote = new int[101];
+        int[] vote = new int[101]; // *************투표 수 저장 배열 초기화
 
         StringTokenizer st = new StringTokenizer(bf.readLine()); // 추천 받은 학생들
         PriorityQueue<student> pick = new PriorityQueue<>(new Comparator<student>() {
@@ -44,7 +44,7 @@ public class Pq사용 {
         while (st.hasMoreTokens()) { // 추천 횟수만큼
             int num = Integer.parseInt(st.nextToken()); // 현재 추천 받은 학생 번호
 
-            if (vote[num] != 0) { // 이미 추천 받았던 학생인 경우
+            if (vote[num] != 0) { // *************이미 추천 받았던 학생인 경우
                 student[] tmp = new student[pick.size()];
                 for (int i = 0; i < tmp.length; i++) {
                     tmp[i] = pick.poll();
@@ -53,29 +53,29 @@ public class Pq사용 {
                 for (student s : tmp) {
                     if (s.no == num) {
                         s.rec++; // 원래 있었던 친구의 추천수 +1
-                        vote[num]++;
+                        vote[num]++; // *************학생 번호 인덱스에 추가
                     }
                     pick.offer(s); // 나머지는 그냥 다시 옮겨 넣기
                 }
             } else if (pick.size() >= N) { // 사진틀이 꽉찬 경우
                 student cur = pick.poll();
                 vote[cur.no] = 0;
-                vote[num]++;
+                vote[num]++; // *************학생 번호 인덱스에 추가
                 pick.offer(new student(num, 1, older++));
             } else { // 뉴페이스라면 ?!
-                vote[num]++;
+                vote[num]++; // *************학생 번호 인덱스에 추가
                 pick.offer(new student(num, 1, older++)); // 큐에 그냥 추가 !
             }
         } // recommend end
 
-        int[] result = new int[N]; // 결과 출력
+        int[] result = new int[N]; // 결과 출력 *********
         int idx = 0;
         while (!pick.isEmpty()) {
-            result[idx++] = pick.poll().no;
+            result[idx++] = pick.poll().no; // *************
         }
 
         // 최종 후보들을 오름차순으로 정렬
-        Arrays.sort(result);
+        Arrays.sort(result); // ************** 정렬하기
 
         // 출력 !
         for (int s : result) {
