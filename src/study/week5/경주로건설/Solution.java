@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public class Solution {
 
-    static int[][][] map;
+    static int[][] map;
     static int r, c;
     static int[] dy = {0, 1, 0, -1};
     static int[] dx = {1, 0, -1, 0};
@@ -58,15 +58,15 @@ public class Solution {
         r = board.length;
         c = board[0].length;
 
-        map = new int[r][c][];
+        map = new int[r][c];
 
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                map[i][j] = new int[]{Integer.MAX_VALUE, 0};
+                map[i][j] = Integer.MAX_VALUE;
             }
         }
         bfs(board);
-        System.out.println(map[r - 1][c - 1][0]);
+        System.out.println(map[r - 1][c - 1]);
 
 
     }
@@ -79,7 +79,7 @@ public class Solution {
             }
         });
         queue.offer(new Node(0, 0, 0, 0, 0, 0));
-        map[0][0][0] = 0;
+        map[0][0] = 0;
 
         while (!queue.isEmpty()) {
             Node cur = queue.poll();
@@ -99,19 +99,17 @@ public class Solution {
                 int newCost = 0;
                 if (direction == 0) {
                     // 방향이 안바뀐 경우
-                    newCost = map[y][x][0] + 100;
+                    newCost = map[y][x] + 100;
                 } else {
                     // 방향이 바뀐 경우
-                    newCost = map[y][x][0] + 600;
+                    newCost = map[y][x] + 600;
                 }
 
-                if (newCost < map[ny][nx][0]) {
-                    map[ny][nx][0] = newCost;
-                    map[ny][nx][1] = direction;
+                if (newCost < map[ny][nx]) {
+                    map[ny][nx] = newCost;
                     queue.offer(new Node(y, x, ny, nx, newCost, direction));
-                } else if (newCost == map[ny][nx][0]) {
+                } else if (newCost == map[ny][nx]) {
                     if (direction == 0) {
-                        map[ny][nx][1] = 1;
                         queue.offer(new Node(y, x, ny, nx, newCost, 0));
                     } else queue.offer(new Node(y, x, ny, nx, newCost, 1));
                 }
