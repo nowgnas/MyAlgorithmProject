@@ -28,14 +28,14 @@ public class Main {
             int p = Integer.parseInt(st.nextToken());
 
             if (i + t > n + 1) {
-                p = 0;
+                p = 0; // 해당 날짜 + 소요 날짜가 N+1을 넘으면 불가능이므로 0
             }
 
             day[i][0] = t;
             day[i][1] = p;
         }
 
-        comb(1);
+        comb(1); // 1일부터 시작
         System.out.println(answer);
 
 
@@ -51,10 +51,10 @@ public class Main {
             return;
         }
 
-        visited[cnt] = true;
-        comb(cnt + day[cnt][0]);
-        visited[cnt] = false;
-        comb(cnt + 1);
+        visited[cnt] = true; // 현재 보는 날짜 true
+        comb(cnt + day[cnt][0]); // 상담이 끝난 후 가능한 날짜로 재귀
+        visited[cnt] = false; // 확인한 날은 false 처리
+        comb(cnt + 1); // 다시 재귀로 확인
     }
 }
 
