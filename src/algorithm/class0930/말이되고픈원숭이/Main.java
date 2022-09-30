@@ -13,17 +13,19 @@ public class Main {
     static boolean[][][] visited;
     static int[] dy = {-1, 0, 1, 0};
     static int[] dx = {0, 1, 0, -1};
-    static int[][] dirLikeHorse = {{-2, -1}, {-2, 1}, {-1, -2}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}};
+    static int[] hdx = {-2, -2, -1, -1, 1, 1, 2, 2}; //말이 이동할 수 있는 8방향
+    static int[] hdy = {-1, 1, -2, 2, -2, 2, -1, 1};
 
     static int[][] map;
     static Queue<Node> queue;
 
     static class Node {
-        int y, x, k;
+        int y, x, move, k;
 
-        public Node(int y, int x, int k) {
+        public Node(int y, int x, int move, int k) {
             this.y = y;
             this.x = x;
+            this.move = move;
             this.k = k;
         }
     }
@@ -37,7 +39,7 @@ public class Main {
         h = Integer.parseInt(st.nextToken());
 
         map = new int[h][w];
-        visited = new boolean[h][w][k+1];
+        visited = new boolean[h][w][k + 1];
         for (int i = 0; i < h; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < w; j++) {
@@ -51,43 +53,41 @@ public class Main {
 
     static int bfs() {
         queue = new ArrayDeque<>();
-        queue.add(new Node(0, 0, k));
+        queue.add(new Node(0, 0, 0, k));
+        visited[0][0][k] = true;
 
         while (!queue.isEmpty()) {
             Node cur = queue.poll();
             int y = cur.y;
             int x = cur.x;
-            int move = cur.k;
-//            if (y == w - 1 && x == h - 1) return move;
-            System.out.println(move);
+            int move = cur.move;
+            int ck = cur.k;
+            if (y == h - 1 && x == w - 1) return move;
 
 
             for (int i = 0; i < 4; i++) {
                 int ny = y + dy[i];
                 int nx = x + dx[i];
-                if (!rangeChekc(ny, nx) || visited[ny][nx][0]) continue;
+                if (!rangeCheck(ny, nx) || visited[ny][nx][ck]) continue;
                 if (map[ny][nx] == 1) continue;
-                queue.add(new Node(ny, nx, move + 1));
-                visited[ny][nx][0] = true;
+                queue.add(new Node(ny, nx, move + 1, ck));
+                visited[ny][nx][ck] = true;
             }
-
-            for (int i = 0; i < dirLikeHorse.length; i++) {
-                int ny = y + dirLikeHorse[i][0];
-                int nx = x + dirLikeHorse[i][1];
-                if (!rangeChekc(ny, nx) || visited[ny][nx][k]) continue;
-                if (map[ny][nx] == 1) continue;
-                queue.add(new Node(ny, nx, move + 1));
-                visited[ny][nx][k] = true;
+            if (ck > 0) {
+                for (int i = 0; i < 8; i++) {
+                    int ny = y + hdy[i];
+                    int nx = x + hdx[i];
+                    if (!rangeCheck(ny, nx) || visited[ny][nx][ck - 1] || map[ny][nx] == 1) continue;
+                    queue.add(new Node(ny, nx, move + 1, ck - 1));
+                    visited[ny][nx][ck - 1] = true;
+                }
             }
         }
         return -1;
     }
 
-    static boolean rangeChekc(int ny, int nx) {
-        return ny >= 0 && nx >= 0 && ny < w && nx < w;
+    static boolean rangeCheck(int ny, int nx) {
+        return ny >= 0 && nx >= 0 && ny < h && nx < w;
     }
 
-    static void horse(int y, int x, int move) {
-
-    }
 }
