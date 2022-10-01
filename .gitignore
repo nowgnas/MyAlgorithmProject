@@ -3,3 +3,4 @@ out
 .classpath
 .project
 MyAlgorithmProject.iml
+.DS_Store
