@@ -22,6 +22,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+
         inputs = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         R = inputs[0];
         C = inputs[1];
