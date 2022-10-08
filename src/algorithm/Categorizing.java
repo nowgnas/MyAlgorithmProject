@@ -10,17 +10,22 @@ public class Categorizing {
         File dir = new File(fileDirectory1);
 
         String[] filenames = dir.list();
-
+        int cnt = 0;
         for (String name :
                 filenames) {
-            String packageName = fileDirectory1 + "/" + name;
-            File dir2 = new File(packageName);
-            String[] packagename = dir2.list();
-            for (String name2 :
-                    packagename) {
-                System.out.println(name2);
+            if (name.contains("class")){
+                String packageName = fileDirectory1 + "/" + name;
+                File dir2 = new File(packageName);
+                String[] packagename = dir2.list();
+                cnt += packagename.length;
+                for (String name2 :
+                        packagename) {
+                    System.out.println(name2);
+                }
             }
+
         }
+        System.out.println(cnt);
 
     }
 }
