@@ -46,9 +46,6 @@ public class Main {
 
     // 조합을 만들음
     private static void combination(int count, int start) {
-        if (count > m) {
-            return;
-        }
 
         // 조합 개수가 충족이 되면 치킨 거리 계산
         if (count == m) {
