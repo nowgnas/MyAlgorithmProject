@@ -9,8 +9,7 @@ public class Main {
     static int n = 5;
     static String res;
     static char[][] map;
-    static node[] tmp, nodeArr;
-    static boolean[] visited;
+    static int[] numbers;
 
     static class node {
         int y, x;
@@ -25,39 +24,29 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         map = new char[n][n];
-        tmp = new node[7];
-        nodeArr = new node[n * n];
-        visited = new boolean[n * n];
+        numbers = new int[25];
 
         int idx = 0;
 
         for (int i = 0; i < n; i++) {
             String line = br.readLine();
             for (int j = 0; j < n; j++) {
-                nodeArr[idx] = new node(i, j);
-                idx++;
+                map[i][j] = line.charAt(j);
             }
         } // 입력 끝
-        perm(0);
 
 
     }
 
-    static void perm(int cnt) {
-        // y가 4개이면 break
+    static void comb(int start, int cnt) {
         if (cnt == 7) {
-            System.out.println(Arrays.toString(tmp));
             return;
         }
-
-        for (int i = 0; i < 7; i++) {
-            if (visited[i]) continue;
-            visited[i] = true;
-            tmp[cnt] = nodeArr[i];
-            perm(cnt + 1);
-            visited[i] = false;
+        for (int i = 0; i < 25; i++) {
+            numbers[cnt] = i;
+            comb(i + 1, cnt + 1);
         }
-
-
     }
+
+
 }
